@@ -1,4 +1,5 @@
 import path from "node:path";
+import { windowLines, MAX_CHARS } from "./window.js";
 
 const DECL_TYPES = new Set([
   "function_declaration",
@@ -44,6 +45,20 @@ export function extractChunks(tree, code, filePath) {
       code: code.slice(child.startIndex, child.endIndex),
     });
   }
+  
 
-  return chunks;
+  if (chunks.length === 0) {
+    return windowLines({ code, filePath });
+  }
+
+  return chunks.flatMap((c) =>
+    c.code.length > MAX_CHARS
+      ? windowLines({
+          code: c.code,
+          filePath,
+          offset: c.startLine - 1,
+          symbol: c.symbol,
+        })
+      : c
+  );
 }
