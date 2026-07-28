@@ -7,6 +7,8 @@ export async function retrieve(question, repo, k = 6) {
 
   const db = await getDb();
   const chunks = await db.collection("chunks").find({ repo }).toArray();
+  
+  
 
   return chunks
     .map((c) => ({ ...c, score: cosineSimilarity(qVec, c.embedding) }))
