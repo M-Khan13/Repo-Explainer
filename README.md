@@ -10,7 +10,7 @@ Built from scratch — no LangChain, no LlamaIndex — because the point was to 
 
 ---
 
-## What it does
+## What it doess
 
 Two flows, kept deliberately separate — the same split as any RAG system:
 
